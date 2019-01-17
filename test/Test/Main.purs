@@ -14,7 +14,7 @@ import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (run)
 
-import Data.Table.Parse (parseTable)
+import Data.Table.Parse as Table
 
 main :: Effect Unit
 main = run [consoleReporter] do
@@ -38,7 +38,7 @@ main = run [consoleReporter] do
             , Tuple (Tuple "3" "b") "b3"
             , Tuple (Tuple "3" "c") "c3"
             ]
-      Either.hush (parseTable identity identity Just identity Just tableString) `shouldEqual`
+      Either.hush (Table.parse identity identity Just identity Just tableString) `shouldEqual`
         Either.hush (Table.mk Just Just (Map.fromFoldable cells))
 
 

@@ -1,4 +1,4 @@
-module Data.Table.Parse (parseTable, Error) where
+module Data.Table.Parse (module Data.Table.Parse) where
 
 import Prelude
 
@@ -21,7 +21,7 @@ import Text.Parsing.Parser.String as PS
 
 import Data.Table.Parse.Internal
 
-parseTable ::
+parse ::
   forall colId rowId column row cell.
   Ord rowId => Ord colId => Ord cell => Ord colId =>
   (String -> cell) ->
@@ -31,8 +31,8 @@ parseTable ::
   (NonEmptyList cell -> Maybe column) ->
   String ->
   Either (Error rowId colId cell) (Table rowId colId cell row column)
-parseTable mkCell mkColId mkCol mkRowId mkRow s =
-  either (Left <<< MkParseError) (toTable mkCell mkColId mkCol mkRowId mkRow) $
+parse mkCell mkColId mkCol mkRowId mkRow s =
+  either (Left <<< MkParseError) (toTyped mkCell mkColId mkCol mkRowId mkRow) $
   runParser s table
 
 table :: forall m. Monad m => ParserT String m (List (List String))
@@ -43,7 +43,7 @@ table = do
   rs <- rows
   pure $ h : rs
 
-toTable ::
+toTyped ::
   forall colId rowId column row cell.
   Ord rowId => Ord colId => Ord cell => Ord colId =>
   (String -> cell) ->
@@ -53,7 +53,7 @@ toTable ::
   (NonEmptyList cell -> Maybe column) ->
   List (List String) ->
   Either (Error rowId colId cell) (Table rowId colId cell row column)
-toTable mkCell mkColId mkCol mkRowId mkRow rawRows =
+toTyped mkCell mkColId mkCol mkRowId mkRow rawRows =
   if sameLengths rawRows
   then maybe (Left MkEmpty) refine $ nonEmptify rawRows
   else Left MkRaggedRows

@@ -1,5 +1,5 @@
 {
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "name": "purescript-tables-parse",
   "ignore": [
     "**/.*",
@@ -15,7 +15,7 @@
     "purescript-parsing": "^5.0.2",
     "purescript-prelude": "^4.1.0",
     "purescript-tuples": "^5.1.0",
-    "purescript-tables": "../purescript-tables"
+    "purescript-tables": "^0.0.1"
   },
   "devDependencies": {
     "purescript-psci-support": "^4.0.0",

@@ -75,8 +75,10 @@ toTyped mkCell mkColId mkCol mkRowId mkRow rawRows =
           colIds <- mapLeft MkBadColIds <<< collectErrors <<< map (tryMk mkColId identity) <<< NonEmpty.tail <<< NonEmpty.head $ rows
           mapLeft MkZipperErrors <<< collectErrors $ List.zipWith zipper colIds cells
           where
-            zipper colId cell =
-              (\rowId' cell' -> Tuple (Tuple rowId' colId) cell') <$> tryMk mkRowId MkBadRowId rowId <*> tryMk mkCell MkBadCell cell
+            zipper colId cell = ado
+              rowId' <- tryMk mkRowId MkBadRowId rowId
+              cell' <- tryMk mkCell MkBadCell cell
+              in Tuple (Tuple rowId' colId) cell'
 
 data ZipperError = MkBadRowId String | MkBadCell String
 derive instance genericZError :: Generic ZipperError _

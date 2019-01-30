@@ -38,7 +38,7 @@ main = run [consoleReporter] do
             , Tuple (Tuple "3" "b") "b3"
             , Tuple (Tuple "3" "c") "c3"
             ]
-      Either.hush (Table.parse identity identity Just identity Just tableString) `shouldEqual`
+      Either.hush (Table.parse Just Just Just Just Just tableString) `shouldEqual`
         Either.hush (Table.mk Just Just (Map.fromFoldable cells))
 
 

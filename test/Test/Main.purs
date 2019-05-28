@@ -3,18 +3,16 @@ module Test.Main where
 import Prelude
 
 import Data.Either as Either
-import Data.Map as Map
+import Data.HashMap as HashMap
 import Data.Maybe (Maybe(..))
 import Data.Table as Table
+import Data.Table.Parse as Table
 import Data.Tuple (Tuple(..))
-
 import Effect (Effect)
 import Test.Spec (describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (run)
-
-import Data.Table.Parse as Table
 
 main :: Effect Unit
 main = run [consoleReporter] do
@@ -38,7 +36,7 @@ main = run [consoleReporter] do
             , Tuple (Tuple "3" "b") "b3"
             , Tuple (Tuple "3" "c") "c3"
             ]
-      Either.hush (Table.parse Just Just Just Just Just tableString) `shouldEqual`
-        Either.hush (Table.mk Just Just (Map.fromFoldable cells))
+      Either.hush (Table.parse Just Just Just tableString) `shouldEqual`
+        Either.hush (Table.mk $ HashMap.fromFoldable cells)
 
 

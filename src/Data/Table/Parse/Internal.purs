@@ -6,16 +6,13 @@ import Data.Array as Array
 import Data.Foldable (class Foldable)
 import Data.Foldable as Foldable
 import Data.List (List, (:))
-import Data.List as List
-import Data.List.NonEmpty (NonEmptyList(..))
+import Data.List.NonEmpty (NonEmptyList)
 import Data.List.NonEmpty as NonEmpty
 import Data.Maybe (Maybe)
-import Data.NonEmpty (NonEmpty(..))
 import Data.Set as Set
 import Data.String (joinWith, trim) as String
 import Data.String.CodeUnits (fromCharArray) as String
 import Data.Traversable (traverse)
-import Data.Tuple (Tuple(..))
 import Text.Parsing.Parser (ParserT)
 import Text.Parsing.Parser.Combinators as Com
 import Text.Parsing.Parser.String as PS

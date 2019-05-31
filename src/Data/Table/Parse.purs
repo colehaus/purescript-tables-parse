@@ -94,5 +94,5 @@ data Error rowId colId
   | MkParseError ParseError
 derive instance genericError :: Generic (Error rowId colId) _
 
-instance showError :: (Show rowId, Show colId, Show cell) => Show (Error rowId colId) where
+instance showError :: (Show rowId, Show colId) => Show (Error rowId colId) where
   show = genericShow
